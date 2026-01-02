@@ -237,10 +237,16 @@
 
         /* Projects Grid */
         .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 24px;
             padding-bottom: 80px;
+        }
+
+        .projects-grid .project-card {
+            flex: 0 1 calc(33.333% - 16px);
+            max-width: 400px;
         }
 
         .project-card {
@@ -262,6 +268,80 @@
         .project-card:nth-child(1) { animation-delay: 0.4s; }
         .project-card:nth-child(2) { animation-delay: 0.5s; }
         .project-card:nth-child(3) { animation-delay: 0.6s; }
+        .project-card:nth-child(4) { animation-delay: 0.7s; }
+        .project-card:nth-child(5) { animation-delay: 0.8s; }
+
+        /* Featured Card Styles with Snake Border */
+        @property --snake-angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+
+        .project-card.featured {
+            border: 1px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .project-card.featured::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 21px;
+            padding: 1px;
+            background: var(--border-subtle);
+            -webkit-mask:
+                linear-gradient(#fff 0 0) content-box,
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .project-card.featured::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 22px;
+            background: conic-gradient(
+                from var(--snake-angle, 0deg),
+                transparent 0deg,
+                transparent 300deg,
+                var(--accent-silver) 330deg,
+                var(--accent-platinum) 345deg,
+                rgba(255, 255, 255, 0.9) 355deg,
+                var(--accent-platinum) 358deg,
+                var(--accent-silver) 359deg,
+                transparent 360deg
+            );
+            -webkit-mask:
+                linear-gradient(#fff 0 0) content-box,
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            padding: 2px;
+            animation: snake-trace 4s linear infinite;
+            opacity: 0.8;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes snake-trace {
+            from { --snake-angle: 0deg; }
+            to { --snake-angle: 360deg; }
+        }
+
+        .project-card.featured:hover::after {
+            opacity: 1;
+            animation-duration: 3s;
+        }
+
+        .project-card.featured:hover {
+            box-shadow:
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                0 0 60px var(--glow-silver);
+        }
 
         @keyframes fadeInUp {
             from {
@@ -548,7 +628,7 @@
 
             <div class="projects-grid">
                 <!-- VisionFit -->
-                <a href="https://www.visionfit.app" target="_blank" rel="noopener noreferrer" class="project-card">
+                <a href="https://www.visionfit.app" target="_blank" rel="noopener noreferrer" class="project-card featured">
                     <div class="project-icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
@@ -558,7 +638,7 @@
                     <h3 class="project-title">VisionFit</h3>
                     <span class="project-tag">AI + Fashion Tech</span>
                     <p class="project-description">
-                        AI-powered platform enabling fashion brands to create professional photo campaigns and virtual clothing catalogs instantly. No models or photographers needed.
+                        Full SaaS platform for fashion brands featuring AI-powered photo generation, Polar payment integration, subscription management, authentication, and admin dashboard. Create professional catalogs without models or photographers.
                     </p>
                     <span class="project-link">
                         Visit Project
@@ -601,6 +681,55 @@
                     <span class="project-tag">AI Analytics</span>
                     <p class="project-description">
                         Intelligent tool for deep analysis of YouTube videos and channels. Extract insights, transcripts, and actionable data using artificial intelligence.
+                    </p>
+                    <span class="project-link">
+                        Visit Project
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <!-- RedditLens -->
+                <a href="https://reddit-lens-jx.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card">
+                    <div class="project-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="m21 21-4.35-4.35"/>
+                            <path d="M11 8v6"/>
+                            <path d="M8 11h6"/>
+                        </svg>
+                    </div>
+                    <h3 class="project-title">RedditLens</h3>
+                    <span class="project-tag">Reddit Analytics</span>
+                    <p class="project-description">
+                        AI-powered Reddit analysis tool to extract insights from subreddits and posts. Filter by score, date range, and discover trending discussions with intelligent comment extraction.
+                    </p>
+                    <span class="project-link">
+                        Visit Project
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <!-- Bruno Estructuras Metálicas -->
+                <a href="https://brunoestructurasmetalicas.vercel.app" target="_blank" rel="noopener noreferrer" class="project-card">
+                    <div class="project-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 21h18"/>
+                            <path d="M5 21V7l7-4 7 4v14"/>
+                            <path d="M9 21v-6h6v6"/>
+                            <path d="M9 9h.01"/>
+                            <path d="M15 9h.01"/>
+                            <path d="M9 13h.01"/>
+                            <path d="M15 13h.01"/>
+                        </svg>
+                    </div>
+                    <h3 class="project-title">Bruno Estructuras Metálicas</h3>
+                    <span class="project-tag">Business Website</span>
+                    <p class="project-description">
+                        Modern business landing page for a metal structures company. Features quote calculator, project gallery, contact forms, and WhatsApp integration for customer engagement.
                     </p>
                     <span class="project-link">
                         Visit Project
