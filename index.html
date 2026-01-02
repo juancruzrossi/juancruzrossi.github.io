@@ -271,48 +271,6 @@
         .project-card:nth-child(4) { animation-delay: 0.7s; }
         .project-card:nth-child(5) { animation-delay: 0.8s; }
 
-        /* Featured Card - Subtle shimmer effect */
-        .project-card.featured {
-            border: 1px solid var(--border-subtle);
-            overflow: hidden;
-        }
-
-        .project-card.featured::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 20px;
-            height: 200%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.15),
-                rgba(255, 255, 255, 0.3),
-                rgba(255, 255, 255, 0.15),
-                transparent
-            );
-            transform: rotate(25deg);
-            animation: shimmer 5s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        @keyframes shimmer {
-            0% { left: -50%; }
-            50%, 100% { left: 150%; }
-        }
-
-        .project-card.featured:hover {
-            border-color: var(--border-hover);
-            box-shadow:
-                0 20px 40px rgba(0, 0, 0, 0.3),
-                0 0 60px var(--glow-silver);
-        }
-
-        .project-card.featured:hover::after {
-            animation-duration: 2s;
-        }
-
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -598,7 +556,7 @@
 
             <div class="projects-grid">
                 <!-- VisionFit -->
-                <a href="https://www.visionfit.app" target="_blank" rel="noopener noreferrer" class="project-card featured">
+                <a href="https://www.visionfit.app" target="_blank" rel="noopener noreferrer" class="project-card">
                     <div class="project-icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
