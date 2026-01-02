@@ -271,76 +271,46 @@
         .project-card:nth-child(4) { animation-delay: 0.7s; }
         .project-card:nth-child(5) { animation-delay: 0.8s; }
 
-        /* Featured Card Styles with Snake Border */
-        @property --snake-angle {
-            syntax: '<angle>';
-            initial-value: 0deg;
-            inherits: false;
-        }
-
+        /* Featured Card - Subtle shimmer effect */
         .project-card.featured {
-            border: 1px solid transparent;
-            background-clip: padding-box;
-        }
-
-        .project-card.featured::before {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            border-radius: 21px;
-            padding: 1px;
-            background: var(--border-subtle);
-            -webkit-mask:
-                linear-gradient(#fff 0 0) content-box,
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-            z-index: -1;
+            border: 1px solid var(--border-subtle);
+            overflow: hidden;
         }
 
         .project-card.featured::after {
             content: '';
             position: absolute;
-            inset: -2px;
-            border-radius: 22px;
-            background: conic-gradient(
-                from var(--snake-angle, 0deg),
-                transparent 0deg,
-                transparent 300deg,
-                var(--accent-silver) 330deg,
-                var(--accent-platinum) 345deg,
-                rgba(255, 255, 255, 0.9) 355deg,
-                var(--accent-platinum) 358deg,
-                var(--accent-silver) 359deg,
-                transparent 360deg
+            top: -50%;
+            left: -50%;
+            width: 20px;
+            height: 200%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.15),
+                rgba(255, 255, 255, 0.3),
+                rgba(255, 255, 255, 0.15),
+                transparent
             );
-            -webkit-mask:
-                linear-gradient(#fff 0 0) content-box,
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            padding: 2px;
-            animation: snake-trace 4s linear infinite;
-            opacity: 0.8;
+            transform: rotate(25deg);
+            animation: shimmer 5s ease-in-out infinite;
             pointer-events: none;
-            z-index: -1;
         }
 
-        @keyframes snake-trace {
-            from { --snake-angle: 0deg; }
-            to { --snake-angle: 360deg; }
-        }
-
-        .project-card.featured:hover::after {
-            opacity: 1;
-            animation-duration: 3s;
+        @keyframes shimmer {
+            0% { left: -50%; }
+            50%, 100% { left: 150%; }
         }
 
         .project-card.featured:hover {
+            border-color: var(--border-hover);
             box-shadow:
                 0 20px 40px rgba(0, 0, 0, 0.3),
                 0 0 60px var(--glow-silver);
+        }
+
+        .project-card.featured:hover::after {
+            animation-duration: 2s;
         }
 
         @keyframes fadeInUp {
